@@ -3,7 +3,7 @@ name: Download EPG Daily
 on:
   schedule:
     # Каждый день в 3:00 UTC
-    - cron: '0 */1 * * *' # Каждые 3 часа, в 0 минут
+    - cron: '0 */1 * * *' # Каждый час, в 0 минут
   workflow_dispatch:  # Позволяет запускать вручную
   push:  # Запускать при изменениях
 
@@ -47,9 +47,25 @@ jobs:
         git config --local user.name "GitHub Action"
         
         if [[ `git status --porcelain` ]]; then
-          git add epg.xml
+          git add epg-lite.xml
           git commit -m "Update EPG: $(date +'%Y-%m-%d %H:%M')"
           git push
         else
           echo "Нет изменений для коммита"
         fi
+
+
+    - name: Commit and push if changed
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Проверяем изменения в папке epgs
+        if [[ $(git status --porcelain epgs/) ]]; then
+          git add epgs/
+          git commit -m "Update EPG: $(date +'%Y-%m-%d %H:%M')"
+          git push
+        else
+          echo "Нет изменений для коммита"
+        fi
+

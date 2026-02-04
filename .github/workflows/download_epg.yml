@@ -18,7 +18,7 @@ jobs:
     - name: Download EPG file
       run: |
         # Скачиваем файл
-		mkdir -p epgs
+        mkdir -p epgs
 
         # 1. Скачиваем во ВРЕМЕННЫЙ файл
         TEMP_FILE="epgs/epg-lite.xml.tmp"
@@ -34,14 +34,14 @@ jobs:
           exit 1
         fi
         
-		# 3. Верификацию xml пропустил
+        # 3. Верификацию xml пропустил
        
         # 4. АТОМАРНО заменяем старый файл
         mv -f "$TEMP_FILE" "epgs/epg-lite.xml"
         
         echo "Файл успешно обновлен"
 
-	- name: Commit and push if changed
+    - name: Commit and push if changed
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"

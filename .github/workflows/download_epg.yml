@@ -54,4 +54,7 @@ jobs:
         else
           echo "Нет изменений для коммита"
         fi
+    env:
+      # GitHub автоматически предоставляет этот токен
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -1,5 +1,8 @@
 name: Download EPG Daily
 
+permissions:
+  contents: write  # Даем права на запись
+
 on:
   schedule:
     # Каждый день в 3:00 UTC
